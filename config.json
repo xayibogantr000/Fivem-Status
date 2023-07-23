@@ -1,18 +1,10 @@
 {
     "URL_SERVER": "",
-    "SERVER_NAME": "",
-    "SERVER_LOGO": "",
-    "EMBED_COLOR": "#00f931",
-    "PERMISSION": "MANAGE_MESSAGES",
-    "BOT_TOKEN": "",
-    "CHANNEL_ID": "",
-    "MESSAGE_ID": "",
-    "SUGGESTION_CHANNEL": "",
-    "BUG_CHANNEL": "",
-    "BUG_LOG_CHANNEL": "",
-    "LOG_CHANNEL": "",
-    "DEBUG": false,
-    "WEBSITE_URL": "",
-    "RESTART_TIMES": "ts ip yazin.",
+
+
+BENI OKU KISMINI OKU.
+
+
+    
     "SHOW_PLAYERS": true
   }
