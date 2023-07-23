@@ -5,7 +5,7 @@ const { start } = require('./bot.js');
 const chalk = require('chalk');
 
 const printValues = function(values, text) {
-  console.log(text ? text : 'Current values:');
+  console.log(text ? text : 'Mevcut Degerler:');
   for (var key in values) {
     console.log(`  ${key} = \x1b[32m'${values[key]}'\x1b[0m`);
   }
@@ -15,12 +15,12 @@ const startBot = function(values) {
   console.log(`${chalk.bgBlue("[INFO]")} ${chalk.blue("Bot başlatılıyor. Birkaç saniye sürecektir.")}`);
   var bot = start(values);
   bot.on('restart',() => {
-    console.log('\nRestarting bot');
+    console.log('\nBot yeniden baslatiliyor.');
     bot.destroy();
     bot = start(values);
   })
   var shutdown = function() {
-    console.log(`${chalk.bgRed(`[STATUS]`)} ${chalk.red('Shutting down')}`);
+    console.log(`${chalk.bgRed(`[DURUM]`)} ${chalk.red('Kapaniyor-kapandi.')}`);
     let destructor = bot.destroy();
     if (destructor) {
       destructor.then(() => {
@@ -39,7 +39,7 @@ if (process.argv.includes('-c') || process.argv.includes('--config')) {
     printValues(values);
     process.exit(0);
   }).catch((error) => {
-    console.log('Unable to load saved values, reconfiguring all saved values again');
+    console.log('Bir hata olustu. Veriler tekrar yükleniyor.');
     setup.createValues().then((values) => {
       setup.saveValues(values).then(() => {
         printValues(values, 'New values:');
@@ -48,7 +48,7 @@ if (process.argv.includes('-c') || process.argv.includes('--config')) {
     }).catch(console.error);
   })
 } else {
-  console.log(`${chalk.bold.bgYellow(`[LOAD]`)} ${chalk.bold.yellow('Bot hazırlanıyor. Birkaç saniye sürecektir.')}`);
+  console.log(`${chalk.bold.bgYellow(`[YUKLEME]`)} ${chalk.bold.yellow('Bot hazırlanıyor. Birkaç saniye sürecektir.')}`);
   setup.loadValues().then((values) => {
     startBot(values);
   }).catch((error) => {
