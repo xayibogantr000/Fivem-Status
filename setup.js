@@ -3,67 +3,66 @@ const readline = require('readline');
 
 const TEMPLATE = {
   'URL_SERVER': {
-    'message': 'Base URL for the FiveM server e.g. http://127.0.0.1:3501 (don\'t end with /)',
+    'message': 'FiveM sunucunuzun temel URL\'si örneğin http://127.0.0.1:3501 (sonunda / ile bitirmeyin)',
     'required': true,
   },
   'SERVER_NAME': {
-    'message': 'The name of your FiveM server',
+    'message': 'FiveM sunucunuzun adı',
     'required': true,
   },
   'SERVER_LOGO': {
-    'message': 'A logo for your FiveM server',
+    'message': 'FiveM sunucunuz için bir logo',
     'required': false,
   },
   'PERMISSION': {
-    'message': 'Permission for the +status command',
+    'message': '+status komutu için izin',
     'required': true,
   },
   'BOT_TOKEN': {
-    'message': 'Discord bot token',
+    'message': 'Discord bot tokenı',
     'required': true,
   },
   'CHANNEL_ID': {
-    'message': 'Channel ID that will be used for updates to be pushed to',
+    'message': 'Güncellemelerin gönderileceği Kanal Kimliği (Channel ID)',
     'required': true,
   },
   'MESSAGE_ID': {
-    'message': 'Message ID of previous update to edit (not required)',
+    'message': 'Düzenlenecek önceki güncellemenin Mesaj Kimliği (Message ID) (gerekli değil)',
     'required': false,
     'default': null
   },
   'SUGGESTION_CHANNEL': {
-    'message': 'Channel that will create suggestion embeds in',
+    'message': 'Öneri gömleklerinin oluşturulacağı Kanal',
     'required': true,
   },
   'BUG_CHANNEL': {
-    'message': 'Channel that will recieve bug reports',
+    'message': 'Hata raporlarının alınacağı Kanal',
     'required': true
   },
   'BUG_LOG_CHANNEL': {
-    'message': 'Channel that will log bug reports',
+    'message': 'Hata raporlarının kaydedileceği Kanal',
     'required': true,
   },
   'LOG_CHANNEL': {
-    'message': 'Channel that will log status changes',
+    'message': 'Durum değişikliklerinin kaydedileceği Kanal',
     'required': true,
   },
   'DEBUG': {
-    'message': 'Disable/Enable debug logs (spammy)',
+    'message': 'Hata ayıklama günlüklerini (spam) devre dışı bırakma/etkinleştirme',
     'required': true
   },
   'WEBSITE_URL': {
-    'message': 'Creates a link button for the status embed. Make sure you are using https://[website] or http://[website]',
+    'message': 'Durum gömleği için bir bağlantı düğmesi oluştururken https://[website] veya http://[website] kullanmanız gerekmektedir.',
     'required': false
   },
   'SHOW_PLAYERS': {
-    'message': 'Choose to either hide or show the online players',
+    'message': 'Çevrimiçi oyuncuları gizleme veya gösterme seçeneği',
     'required': true
   },
   'RESTART_TIMES': {
-    'message': 'Displays restart time of your server',
+    'message': 'Sunucunuzun yeniden başlatma zamanlarını görüntüleme',
     'required': true
   }
-  
 };
 const SAVE_FILE = './config.json';
 
@@ -73,7 +72,7 @@ function loadValue(key) {
       input: process.stdin,
       output: process.stdout
     });
-    io.question(`Please enter a value for '${key}'${TEMPLATE[key].required ? '' : ` (Not required defaults to '${TEMPLATE[key].default}')`}\n  ${TEMPLATE[key].message}\n> `, (value) => {
+    io.question(`Lütfen '${key}' için bir değer girin${TEMPLATE[key].required ? '' : ` (Gerekli değil, varsayılan değer '${TEMPLATE[key].default}')`}\n  ${TEMPLATE[key].message}\n> `, (value) => {
       io.close();
       resolve(value);
     });
@@ -133,7 +132,7 @@ exports.loadValues = function() {
       try {
         json = JSON.parse(data);
       } catch(e) {
-        console.log('There is a JSON error in your ./config.json file!');
+        console.log('./config.json dosyanızda bir JSON hatası var!');
         return reject(e);
       }
       let notFound = new Array();
@@ -145,7 +144,7 @@ exports.loadValues = function() {
       if (notFound.length === 0) {
         return resolve(json);
       } else {
-        console.log('Found new configuration values and they have been added!');
+        console.log('Yeni yapılandırma değerleri bulundu ve eklenmiştir!');
         exports.createValues(notFound).then((data) => {
           for (var key in data) {
             json[key] = data[key];
