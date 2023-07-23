@@ -349,10 +349,10 @@ bot.on('messageCreate', async function (msg) {
     if (message.member) {
       if (message.content.startsWith('+durum ')) {
         if (message.member.permissions.has(PERMISSION)) {
-          let durum = message.content.substr(7).trim();
+          let status = message.content.substr(7).trim();
           let embed = new Discord.MessageEmbed()
             .setAuthor({ name: message.member.nickname ? message.member.nickname : message.author.tag, iconURL: message.author.displayAvatarURL() })
-            .setColor(EMBED_RENGI)
+            .setColor(EMBED_COLOR)
             .setTitle('☑️ Durum mesajı güncellendi')
             .setTimestamp(new Date());
 
@@ -361,7 +361,7 @@ bot.on('messageCreate', async function (msg) {
             message.reply({ content: '☑️ Durum temizlendi!', allowedMentions: { repliedUser: false } });
             embed.setDescription('Durum mesajı temizlendi');
           } else {
-            STATUS = durum;
+            STATUS = status;
             embed.setDescription(`Yeni mesaj:\n\`\`\`${STATUS}\`\`\``);
           }
 
@@ -380,7 +380,7 @@ bot.on('messageCreate', async function (msg) {
       }
 
       if (message.channel.id === ONERI_KANAL) {
-        let oneriEkleri = message.attachments;
+        let suggestionMap = message.attachments;
         let embed = new Discord.MessageEmbed()
           .setAuthor({ name: message.member.nickname ? message.member.nickname : message.author.tag, iconURL: message.author.displayAvatarURL() })
           .setColor(0x2894C2)
@@ -389,16 +389,16 @@ bot.on('messageCreate', async function (msg) {
           .setTimestamp(new Date());
 
         if (message.attachments.size != 0) {
-          for (let [key, value] of oneriEkleri) {
+          for (let [key, value] of suggestionMap) {
             if (!value.contentType.includes("image")) return;
             embed.setImage(value.proxyURL);
           }
         }
 
-        message.channel.send({ embeds: [embed] }).then((mesaj) => {
-          const gonderilenMesaj = mesaj;
-          gonderilenMesaj.react('👍').then(() => {
-            gonderilenMesaj.react('👎').then(() => {
+        message.channel.send({ embeds: [embed] }).then((message) => {
+          const  sent = message;
+          sent.react('👍').then(() => {
+            sent.react('👎').then(() => {
               console.log(`${chalk.bgBlue(`[BİLGİ]`)} ${chalk.blue(`Öneri mesajı tamamlandı`)}`);
             }).catch(console.error);
           }).catch(console.error);
@@ -407,16 +407,16 @@ bot.on('messageCreate', async function (msg) {
         return message.delete();
       }
 
-      if (message.channel.id === HATA_RAPOR_KANAL) {
-        let hataRaporuEkleri = message.attachments;
-        let embedKullanici = new Discord.MessageEmbed()
+      if (message.channel.id === BUG_CHANNEL) {
+        let bugMap  = message.attachments;
+        let embedUser  = new Discord.MessageEmbed()
           .setAuthor({ name: message.member.nickname ? message.member.nickname : message.author.tag, iconURL: message.author.displayAvatarURL() })
           .setColor(0x2894C2)
           .setTitle('Hata Raporu')
           .setDescription('Raporunuz başarıyla personel ekibine gönderildi!')
           .setTimestamp(new Date());
 
-        let embedPersonel = new Discord.MessageEmbed()
+        let embedStaff = new Discord.MessageEmbed()
           .setAuthor({ name: message.member.nickname ? message.member.nickname : message.author.tag, iconURL: message.author.displayAvatarURL() })
           .setColor(0x2894C2)
           .setTitle('Hata Raporu')
@@ -424,14 +424,14 @@ bot.on('messageCreate', async function (msg) {
           .setTimestamp(new Date());
 
         if (message.attachments.size != 0) {
-          for (let [key, value] of hataRaporuEkleri) {
+          for (let [key, value] of bugMap) {
             if (!value.contentType.includes("image")) return;
             embedPersonel.setImage(value.proxyURL);
           }
         }
 
-        message.channel.send({ embeds: [embedKullanici] }).then(null).catch(console.error);
-        bot.channels.cache.get(HATA_RAPOR_LOG_KANALI).send({ embeds: [embedPersonel] }).then(null).catch(console.error);
+        message.channel.send({ embeds: [embedStaff] }).then(null).catch(console.error);
+        bot.channels.cache.get(BUG_LOG_CHANNEL).send({ embeds: [embedStaff] }).then(null).catch(console.error);
 
         return message.delete();
       }
