@@ -1,5 +1,5 @@
 echo off
-title xayibogantr - status system
+title xayibogantr - f durum
 color 04
 cls
 :a                                                   
