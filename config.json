@@ -1,10 +1,18 @@
 {
-
-
-
-BENI OKU KISMINI OKU.
-
-
-    
-
+    "URL_SERVER": "", // sunucu ipsi
+    "SERVER_NAME": "",  //sunucu ismi
+    "SERVER_LOGO": "",  //discord linki ile logo urlsi
+    "EMBED_COLOR": "#00f931",
+    "PERMISSION": "MANAGE_MESSAGES",
+    "BOT_TOKEN": "", //token
+    "CHANNEL_ID": "", //mesajın gideceği kanal
+    "MESSAGE_ID": "",  //ilk start verdikten sonra gelen mesajın id kopyalayıp buraya yapıştırın
+    "SUGGESTION_CHANNEL": "", //oneri kanali
+    "BUG_CHANNEL": "",
+    "BUG_LOG_CHANNEL": "",
+    "LOG_CHANNEL": "",
+    "DEBUG": false,
+    "WEBSITE_URL": "",
+    "RESTART_TIMES": "",   //ts ipsi atin
+    "SHOW_PLAYERS": true
   }
