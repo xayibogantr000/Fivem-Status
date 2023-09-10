@@ -1,3 +1,5 @@
 FIVEM için discord durum.
 
-config icin ulas. xayibogantr - xayibogantr#1234
+Fork ve star yeterlidir ♥
+
+İletişim: xayibogantr - xayibogantr#1234
